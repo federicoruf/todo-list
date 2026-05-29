@@ -1,0 +1,1 @@
+{"root":["./src/api/duties.test.ts","./src/app.test.tsx","./src/components/dutyform.test.tsx","./src/components/dutyitem.test.tsx","./src/components/dutylist .test.tsx","./src/setuptests.ts","./src/test/stylemock.ts","./src/css.d.ts"],"version":"6.0.3"}
