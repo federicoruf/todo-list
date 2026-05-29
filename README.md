@@ -5,33 +5,54 @@
 ### Requirements
 
 - Node.js
-- MongoDB
-- Docker
+- Docker (for PostgreSQL)
 
 ### Installation
 
+From the `backend` folder:
+
 ```bash
+cd backend
 npm install
 ```
 
-Initialize the database
+Create `.env` from the template (connection settings for Postgres):
+
 ```bash
+cp .env.example .env
+```
+
+Start the database and apply the schema:
+
+```bash
+docker compose up -d
 npm run db:init
 ```
 
 ### Running
 
 ```bash
-npm start
+npm run dev
+```
+
+### Tests
+
+```bash
+npm run test
+```
+
+### Build
+
+```bash
+npm run build
 ```
 
 ### Endpoints
 
-| Method | Endpoint | Description | Curl |
-| --- | --- | --- | --- |
+| Method | Endpoint | Description |
+| --- | --- | --- |
 | GET | /health | Health check |
 | GET | /duties | Get all duties | 
-| GET | /duties/:id | Get a duty by id |
 | POST | /duties | Create a new duty |
 | PUT | /duties/:id | Update a duty by id |
 | DELETE | /duties/:id | Delete a duty by id |
@@ -43,28 +64,28 @@ npm start
 curl http://localhost:3001/health
 ```
 
-##### Crear
+##### Create
 ```bash
 curl -s -X POST http://localhost:3001/duties \
   -H "Content-Type: application/json" \
-  -d "{\"name\": \"Tarea de prueba\"}"
+  -d "{\"name\": \"Test task\"}"
 ```
 
-##### Listar (ver el id)
+##### List
 ```bash
 curl -s http://localhost:3001/duties
 ```
 
-##### Actualizar (pega el id)
+##### Update
 ```bash
-curl -s -X PUT http://localhost:3001/duties/PEGA_AQUI_EL_ID \
+curl -s -X PUT http://localhost:3001/duties/DUTY_ID \
   -H "Content-Type: application/json" \
-  -d "{\"name\": \"Tarea actualizada\"}"
+  -d "{\"name\": \"Updated name\"}"
 ```
 
-##### Borrar
+##### Delete
 ```bash
-curl -s -X DELETE http://localhost:3001/duties/PEGA_AQUI_EL_ID -w "\nHTTP %{http_code}\n"
+curl -s -X DELETE http://localhost:3001/duties/DUTY_ID -w "\nHTTP %{http_code}\n"
 ```
 
 ### Database
@@ -77,12 +98,7 @@ docker exec -it todo-list-db psql -U todo -d todo_list
 Then inside psql:
 ```bash
 \dt                    -- list tables
-```
-
-```bash
 SELECT * FROM duties;  -- see rows
-```
-```bash
 \q                     -- quit
 ```
 
@@ -92,16 +108,51 @@ SELECT * FROM duties;  -- see rows
 
 - Node.js
 - NPM
-- Yarn
 
 ### Installation
 
+From the `frontend` folder:
+
 ```bash
-yarn install
+cd frontend
+npm install
+```
+
+Create `.env` from the template (backend URL for the API client):
+
+```bash
+cp .env.example .env
 ```
 
 ### Running
 
 ```bash
-yarn start
+npm run dev
+```
+
+### Tests
+
+```bash
+npm run test
 ```     
+
+### Build
+
+```bash
+npm run build
+```
+
+## Screenshots
+
+### Empty state
+![Empty state - no duties yet](frontend/screenshots/emptyList.png)
+
+### One duty
+![List with one duty](frontend/screenshots/oneList.png)
+
+### Many duties
+![List with many duties](frontend/screenshots/manyList.png)
+
+### Edit duty
+![Editing a duty inline](frontend/screenshots/editList.png)
+
